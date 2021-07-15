@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" th:href="@{../css/index.css}"/>
+</head>
+<body>
+<div style="width: 1400px;overflow: hidden">
+    main1
+    <button id="loginout">退出登录</button>
+</div>
+<script th:src="@{https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js}"></script>
+<script th:src="@{../js/logout.js}"></script>
+<script th:inline="javascript">
+    $(function () {
+        var params = [[${sendparam}]];
+        if (params == null) {
+            return;
+        }
+        var arrDomain = params.cookieurl;
+        jQuery.each(arrDomain, function () {
+            //循环访问
+            var u = this + "?cookieName=" + params.cookieName + "&cookieValue=" + params.cookieValue;
+            alert(u);
+            $.ajax({
+                url: u,
+                type: "get",
+                dataType: "jsonp"
+            });
+        });
+    })
+</script>
+</body>
+</html>
